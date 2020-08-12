@@ -17,15 +17,20 @@ geolocator = Nominatim(user_agent='myapplication')
 def forecast():
 
     response = request.json
-    location = response['location']
+    input_location = response['location']
 
-    location = geolocator.geocode(location)
-    lat, lon = location.raw['lat'], location.raw['lon']
+    location = geolocator.geocode(input_location)
+    if not location:
+        weather_desc = "I'm sorry but I couldn't parse this location."
+    else:
+        lat, lon = location.raw['lat'], location.raw['lon']
 
-    weather_data = ya_api.get_weather(lat=lat, lon=lon)
-    weather_desc = parser.parse(weather_data)
+        weather_data = ya_api.get_weather(lat=lat, lon=lon)
+        weather_desc = parser.parse(weather_data)
 
-    return jsonify({'description': weather_desc, 'lat': lat, 'lon': lon}), 201
+    return jsonify(
+        {'description': weather_desc, 'location': input_location}
+    ), 201
 
 
 if __name__ == '__main__':
