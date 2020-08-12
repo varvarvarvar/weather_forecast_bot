@@ -3,7 +3,7 @@ import logging
 
 import requests
 
-from config import YA_WEATHER_API
+from config import YA_WEATHER_API, CONDITION_MAPPER
 
 
 class YaWeather:
@@ -35,6 +35,12 @@ class YaWeather:
         return None
 
 
-api = YaWeather(YA_WEATHER_API)
-resp = api.get_weather(lat=55.742793, lon=37.615401)
-print(resp)
+class YaWeatherParser:
+    def __init__(self):
+        pass
+
+    def parse(self, data):
+        str = 'Температура %s°C, ощущается как %s°C, %s.' % (
+            data['fact']['temp'], data['fact']['feels_like'], CONDITION_MAPPER[data['fact']['condition']]
+        )
+        return str
