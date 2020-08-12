@@ -1,8 +1,6 @@
 import logging
 import requests
 
-from config import CONDITION_MAPPER
-
 
 class YaWeather:
 
