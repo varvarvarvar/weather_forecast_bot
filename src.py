@@ -39,9 +39,9 @@ class YaWeatherParser:
     def __init__(self):
         pass
 
-    def parse(self, data):
-        str = 'Температура %s°C, ощущается как %s°C, %s.' % (
-            data['fact']['temp'], data['fact']['feels_like'],
-            CONDITION_MAPPER[data['fact']['condition']]
+    def parse(self, weather_data):
+        weather_desc = 'Температура %s°C, ощущается как %s°C, %s.' % (
+            weather_data['fact']['temp'], weather_data['fact']['feels_like'],
+            CONDITION_MAPPER[weather_data['fact']['condition']]
         )
-        return str
+        return weather_desc
