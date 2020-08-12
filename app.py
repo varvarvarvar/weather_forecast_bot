@@ -3,12 +3,12 @@ from flask import Flask, jsonify, request
 from geopy.geocoders import Nominatim
 
 from config import YA_TOKEN
-from src import YaWeather, YaWeatherParser
+from src import YaWeather, YaWeatherDescriptor
 
 app = Flask(__name__)
 
 ya_api = YaWeather(YA_TOKEN)
-parser = YaWeatherParser()
+descriptor = YaWeatherDescriptor()
 
 geolocator = Nominatim(user_agent='myapplication')
 
@@ -26,7 +26,7 @@ def forecast():
         lat, lon = location.raw['lat'], location.raw['lon']
 
         weather_data = ya_api.get_weather(lat=lat, lon=lon)
-        weather_desc = parser.parse(weather_data)
+        weather_desc = descriptor.describe(weather_data)
 
     return jsonify(
         {'description': weather_desc, 'location': input_location}

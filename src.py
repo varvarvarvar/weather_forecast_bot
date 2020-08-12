@@ -33,11 +33,11 @@ class YaWeather:
         return None
 
 
-class YaWeatherParser:
+class YaWeatherDescriptor:
     def __init__(self):
         pass
 
-    def parse(self, weather_data):
+    def describe(self, weather_data):
         weather_desc = 'Temperature: %sC, feels like: %sC, %s.' % (
             weather_data['fact']['temp'], weather_data['fact']['feels_like'],
             weather_data['fact']['condition']
