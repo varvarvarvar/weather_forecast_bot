@@ -1,23 +1,24 @@
 from flask import Flask, jsonify, request
-from config import YA_WEATHER_API, CONDITION_MAPPER
+from config import YA_TOKEN
 from src import YaWeather, YaWeatherParser
 
 app = Flask(__name__)
 
-api = YaWeather(YA_WEATHER_API)
+ya_api = YaWeather(YA_TOKEN)
 parser = YaWeatherParser()
 
 
 @app.route('/weather/api/v1.0/', methods=['POST'])
-def get_forecast():
+def forecast():
 
-    lat, lon = float(request.json['lat']), float(request.json['lon'])
+    response = request.json
+    lat, lon = float(response['lat']), float(response['lon'])
 
-    data = api.get_weather(lat=lat, lon=lon)
-    str = parser.parse(data)
+    weather_data = ya_api.get_weather(lat=lat, lon=lon)
+    weather_description = parser.parse(weather_data)
 
-    return jsonify({'temp': str, 'lat': request.json['lat'], 'lon': request.json['lon']}), 201
+    return jsonify({'temp': weather_description, 'lat': lat, 'lon': lon}), 201
 
 
 if __name__ == '__main__':
-    app.run(debug=False, port=5000)
+    app.run(debug=True, port=5000)

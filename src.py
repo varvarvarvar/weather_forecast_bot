@@ -1,9 +1,7 @@
-import json
 import logging
-
 import requests
 
-from config import YA_WEATHER_API, CONDITION_MAPPER
+from config import CONDITION_MAPPER
 
 
 class YaWeather:
@@ -14,7 +12,9 @@ class YaWeather:
 
     def get_weather(self, lat, lon):
 
-        base_url = "https://api.weather.yandex.ru/v2/forecast?lat=%s&lon=%s" % (lat, lon)
+        base_url = "https://api.weather.yandex.ru/v2/forecast?lat=%s&lon=%s" % (
+            lat, lon
+        )
 
         try:
             response = requests.get(base_url, headers=self._headers)
@@ -41,6 +41,7 @@ class YaWeatherParser:
 
     def parse(self, data):
         str = 'Температура %s°C, ощущается как %s°C, %s.' % (
-            data['fact']['temp'], data['fact']['feels_like'], CONDITION_MAPPER[data['fact']['condition']]
+            data['fact']['temp'], data['fact']['feels_like'],
+            CONDITION_MAPPER[data['fact']['condition']]
         )
         return str

@@ -1,5 +1,5 @@
 
-YA_WEATHER_API = '9b5a150e-dc69-458f-b51d-9bfe738c8376'
+YA_TOKEN = '9b5a150e-dc69-458f-b51d-9bfe738c8376'
 
 CONDITION_MAPPER = {
     'clear': 'ясно',
