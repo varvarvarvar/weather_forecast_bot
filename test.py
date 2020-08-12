@@ -1,0 +1,40 @@
+import json
+import logging
+
+import requests
+
+from config import YA_WEATHER_API
+
+
+class YaWeather:
+
+    def __init__(self, api_token):
+        self._api_token = api_token
+        self._headers = {'X-Yandex-API-Key': self._api_token}
+
+    def get_weather(self, lat, lon):
+
+        base_url = "https://api.weather.yandex.ru/v2/forecast?lat=%s&lon=%s" % (lat, lon)
+
+        try:
+            response = requests.get(base_url, headers=self._headers)
+            response = response.json()
+
+            if 'status' in response:
+                logging.error(
+                    'Error fetching data from Yandex.Weather, %s, %s',
+                    response['status'], response['message']
+                )
+                return None
+
+            return response
+
+        except Exception as e:
+            logging.error('Oops! En error occurred: %s' % e)
+
+        return None
+
+
+api = YaWeather(YA_WEATHER_API)
+resp = api.get_weather(lat=55.742793, lon=37.615401)
+print(resp)
