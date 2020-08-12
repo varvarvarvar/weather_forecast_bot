@@ -13,7 +13,7 @@ parser = YaWeatherParser()
 geolocator = Nominatim(user_agent='myapplication')
 
 
-@app.route('/weather/api/v1.0/', methods=['POST'])
+@app.route('/weather/api/v1.0/', methods=['GET'])
 def forecast():
 
     response = request.json
