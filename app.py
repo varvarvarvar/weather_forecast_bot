@@ -22,13 +22,23 @@ def index():
 def forecast():
 
     response = request.json
+
     location = response['location']
 
     weather_desc = descriptor.describe(location)
 
+    if 'error' in weather_desc:
+        return jsonify(
+            {
+                'response': None,
+                'location': location,
+                'error': weather_desc['error']
+            }
+        ), 200
+
     return jsonify(
-        {'description': weather_desc, 'location': location}
-    ), 201
+        {'response': weather_desc['response'], 'location': location}
+    ), 200
 
 
 if __name__ == '__main__':

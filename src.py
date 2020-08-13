@@ -40,14 +40,13 @@ class YaWeather:
                     'Error fetching data from Yandex.Weather, %s, %s',
                     response['status'], response['message']
                 )
-                return None
+                return {'response': None, 'error': response['message']}
 
-            return response
+            return {'response': response}
 
         except Exception as e:
             logging.error('Oops! En error occurred: %s' % e)
-
-        return None
+            return {'response': None, 'error': e}
 
 
 class YaWeatherDescriptor:
@@ -75,14 +74,20 @@ class YaWeatherDescriptor:
                 or 'temp' not in weather_data['fact'] \
                 or 'feels_like' not in weather_data['fact'] \
                 or 'condition' not in weather_data['fact']:
-            return None
+
+            logging.error('Incorrect Ya Weather API output')
+            return {
+                'response': None,
+                'error': 'Incorrect Ya Weather API output format.'
+            }
 
         weather_desc = 'Temperature: %sC, feels like: %sC, %s.' % (
             weather_data['fact']['temp'],
             weather_data['fact']['feels_like'],
             weather_data['fact']['condition']
         )
-        return weather_desc
+
+        return {'response': weather_desc}
 
     def describe(self, input_location: str) -> str:
         """Process input location address to form a verbal weather description.
@@ -102,20 +107,23 @@ class YaWeatherDescriptor:
         location = self.geolocator.geocode(input_location)
 
         if not location:
-            return "Can't parse this location."
+            logging.error(
+                "Geopy couldn't parse this location."
+            )
+            return {
+                'response': None,
+                'error': "Geopy couldn't parse this location."
+            }
 
         lat, lon = location.raw['lat'], location.raw['lon']
 
         # Retrieve weather information using the latitude and longitude.
         weather_data = self.ya_api.get_weather(lat=lat, lon=lon)
 
-        if not weather_data:
-            return 'Internal error.'
+        if 'error' in weather_data:
+            return weather_data
 
         # Form a verbal weather description based on the weather information.
-        weather_desc = self.form_description(weather_data)
-
-        if not weather_desc:
-            return 'Internal error.'
+        weather_desc = self.form_description(weather_data['response'])
 
         return weather_desc
