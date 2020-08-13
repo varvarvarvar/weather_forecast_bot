@@ -8,6 +8,16 @@ app = Flask(__name__)
 descriptor = YaWeatherDescriptor(YA_TOKEN)
 
 
+@app.route('/')
+def index():
+    welcome_msg = (
+        'This is weather forecast API. <br>'
+        'Read the docs here: <br>'
+        'https://github.com/varvara-krasavina/weather_forecast_bot#weather_forecast_bot'
+    )
+    return welcome_msg
+
+
 @app.route('/weather/api/v1.0/', methods=['GET'])
 def forecast():
 
