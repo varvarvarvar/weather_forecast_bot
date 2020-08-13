@@ -9,11 +9,15 @@ GET request to https://krasavina-weather-forecast-bot.herokuapp.com/weather/api/
 <br>
 **Parameters**:
 <br>
-location: input location (required)
+location: Input location
 <br>
 **Returns**:
 <br>
-Verbal weather description
+location: Input location
+<br>
+response: Weather description
+<br>
+error [ optional ]:  Error
 
 # Command line usage examples
 
