@@ -5,12 +5,27 @@ from geopy.geocoders import Nominatim
 
 
 class YaWeather:
+    """Retrieve weather info from Yandex Weather API.
 
-    def __init__(self, api_token):
+    """
+
+    def __init__(self, api_token: str) -> None:
+
         self._api_token = api_token
         self._headers = {'X-Yandex-API-Key': self._api_token}
 
-    def get_weather(self, lat, lon):
+    def get_weather(self, lat: float, lon: float) -> dict:
+        """Send GET request to Yandex Weather API.
+
+        Parameters:
+        lat (float): Latitude
+        lon (float): Longitude
+
+        Returns:
+        dict:Weather information (temperature, wind speed etc)
+        See https://yandex.ru/dev/weather/doc/dg/concepts/forecast-info-docpage/#resp-format
+
+        """
 
         base_url = "https://api.weather.yandex.ru/v2/forecast?lat=%s&lon=%s" % (
             lat, lon
@@ -36,12 +51,25 @@ class YaWeather:
 
 
 class YaWeatherDescriptor:
-    def __init__(self, ya_api_token):
+    """Process input location address to form a verbal weather description.
+
+    """
+
+    def __init__(self, ya_api_token: str) -> None:
 
         self.ya_api = YaWeather(ya_api_token)
         self.geolocator = Nominatim(user_agent='myapplication')
 
-    def form_description(self, weather_data):
+    def form_description(self, weather_data: dict) -> str:
+        """Form a verbal weather description based on the weather information.
+
+        Parameters:
+        weather_data (dict): Weather information
+
+        Returns:
+        str:Verbal weather description
+
+        """
 
         if 'fact' not in weather_data \
                 or 'temp' not in weather_data['fact'] \
@@ -56,8 +84,21 @@ class YaWeatherDescriptor:
         )
         return weather_desc
 
-    def describe(self, input_location):
+    def describe(self, input_location: str) -> str:
+        """Process input location address to form a verbal weather description.
+        Convert input string location address to its respective latitude and longitude.
+        Retrieve weather information using the latitude and longitude.
+        Form a verbal weather description based on the weather information.
 
+        Parameters:
+        input_location (str): Input address
+
+        Returns:
+        str:Verbal weather description
+
+        """
+
+        # Convert input string location to its respective latitude and longitude.
         location = self.geolocator.geocode(input_location)
 
         if not location:
@@ -65,11 +106,13 @@ class YaWeatherDescriptor:
 
         lat, lon = location.raw['lat'], location.raw['lon']
 
+        # Retrieve weather information using the latitude and longitude.
         weather_data = self.ya_api.get_weather(lat=lat, lon=lon)
 
         if not weather_data:
             return 'Internal error.'
 
+        # Form a verbal weather description based on the weather information.
         weather_desc = self.form_description(weather_data)
 
         if not weather_desc:
