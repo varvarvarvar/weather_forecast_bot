@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, abort, make_response
+from flask import Flask, jsonify, request
 
 from config import YA_TOKEN
 from src import YaWeatherDescriptor
@@ -22,24 +22,13 @@ def index():
 def forecast():
 
     response = request.json
-    if not response:
-        abort(404)
-
     location = response['location']
-
-    if location not in response:
-        abort(404)
 
     weather_desc = descriptor.describe(location)
 
     return jsonify(
         {'description': weather_desc, 'location': location}
     ), 201
-
-
-@app.errorhandler(404)
-def not_found(error):
-    return make_response(jsonify({'error': 'Incorrect input format'}), 404)
 
 
 if __name__ == '__main__':
