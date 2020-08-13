@@ -41,7 +41,7 @@ $ curl -i -H "Content-Type: application/json" -X GET -d '{"location": "Piazza de
 4.
 
 ```bash
-curl -i -H "Content-Type: application/json" -X GET -d '{"location": "хупся"}' https://krasavina-weather-forecast-bot.herokuapp.com/weather/api/v1.0/
+$ curl -i -H "Content-Type: application/json" -X GET -d '{"location": "хупся"}' https://krasavina-weather-forecast-bot.herokuapp.com/weather/api/v1.0/
 >> {"error":"Geopy couldn't parse this location.","location":"хупся","response":null}
 ```
 
