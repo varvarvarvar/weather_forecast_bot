@@ -61,18 +61,18 @@ class YaWeatherDescriptor:
         location = self.geolocator.geocode(input_location)
 
         if not location:
-            return "Sorry, but I couldn't parse this location."
+            return "Can't parse this location."
 
         lat, lon = location.raw['lat'], location.raw['lon']
 
         weather_data = self.ya_api.get_weather(lat=lat, lon=lon)
 
         if not weather_data:
-            return 'Sorry, an internal error occurred.'
+            return 'Internal error.'
 
         weather_desc = self.form_description(weather_data)
 
         if not weather_desc:
-            return 'Sorry, an internal error occurred.'
+            return 'Internal error.'
 
         return weather_desc
