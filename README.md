@@ -21,21 +21,28 @@ Verbal weather description
 
 ```bash
 $ curl -i -H "Content-Type: application/json" -X GET -d '{"location": "Red Square"}' https://krasavina-weather-forecast-bot.herokuapp.com/weather/api/v1.0/
->> {"description":"Temperature: 15C, feels like: 13C, overcast.","location":"Red Square"}
+>> {"location":"Red Square","response":"Temperature: 13C, feels like: 12C, rain."}
 ```
 
 2.
 
 ```bash
 $ curl -i -H "Content-Type: application/json" -X GET -d '{"location": "Natural History Museum, London"}' https://krasavina-weather-forecast-bot.herokuapp.com/weather/api/v1.0/
->> {"description":"Temperature: 25C, feels like: 25C, rain.","location":"Natural History Museum, London"}
+>> {"location":"Natural History Museum, London","response":"Temperature: 20C, feels like: 21C, cloudy."}
 ```
 
 3.
 
 ```bash
 $ curl -i -H "Content-Type: application/json" -X GET -d '{"location": "Piazza del Colosseo, 1, Roma"}' https://krasavina-weather-forecast-bot.herokuapp.com/weather/api/v1.0/
->> {"description":"Temperature: 32C, feels like: 29C, cloudy.","location":"Piazza del Colosseo, 1, Roma"}
+>> {"location":"Piazza del Colosseo, 1, Roma","response":"Temperature: 26C, feels like: 28C, clear."}
+```
+
+4.
+
+```bash
+curl -i -H "Content-Type: application/json" -X GET -d '{"location": "хупся"}' https://krasavina-weather-forecast-bot.herokuapp.com/weather/api/v1.0/
+>> {"error":"Geopy couldn't parse this location.","location":"хупся","response":null}
 ```
 
 # Used technology stack
