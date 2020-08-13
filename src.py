@@ -22,7 +22,10 @@ class YaWeather:
         lon (float): Longitude
 
         Returns:
-        dict:Weather information (temperature, wind speed etc)
+        {
+        response: {Weather information (temperature, wind speed etc)} or None
+        error [ optional ]:  str
+        }
         See https://yandex.ru/dev/weather/doc/dg/concepts/forecast-info-docpage/#resp-format
 
         """
@@ -66,7 +69,10 @@ class YaWeatherDescriptor:
         weather_data (dict): Weather information
 
         Returns:
-        str:Verbal weather description
+        {
+        response: str Verbal weather description
+        error [ optional ]:  str
+        }
 
         """
 
@@ -99,7 +105,10 @@ class YaWeatherDescriptor:
         input_location (str): Input address
 
         Returns:
-        str:Verbal weather description
+        {
+        response: str Verbal weather description
+        error [ optional ]:  str
+        }
 
         """
 
