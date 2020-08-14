@@ -60,34 +60,34 @@ class MeteoParser:
             logging.error(error_msg)
             return {'response': None, 'error': error_msg}
 
-    def _parse(self, weather_data: dict) -> dict:
+    def _parse(self, meteo_data: dict) -> dict:
 
-        if 'fact' not in weather_data \
-                or 'temp' not in weather_data['fact'] \
-                or 'feels_like' not in weather_data['fact'] \
-                or 'condition' not in weather_data['fact']:
+        if 'fact' not in meteo_data \
+                or 'temp' not in meteo_data['fact'] \
+                or 'feels_like' not in meteo_data['fact'] \
+                or 'condition' not in meteo_data['fact']:
 
             error_msg = 'Incorrect Ya Weather API output'
             logging.error(error_msg)
             return {'response': None, 'error': error_msg}
 
         # Form a verbal weather description based on the weather information.
-        weather_desc = 'Temperature: %sC, feels like: %sC, %s.' % (
-            weather_data['fact']['temp'],
-            weather_data['fact']['feels_like'],
-            weather_data['fact']['condition']
+        meteo_desc = 'Temperature: %sC, feels like: %sC, %s.' % (
+            meteo_data['fact']['temp'],
+            meteo_data['fact']['feels_like'],
+            meteo_data['fact']['condition']
         )
 
-        return {'response': weather_desc}
+        return {'response': meteo_desc}
 
     def get_data(self, lat: float, lon: float) -> dict:
 
-        weather_data = self._request_data(lat, lon)
-        if 'error' in weather_data:
-            return weather_data
-        weather_data = self._parse(weather_data['response'])
+        meteo_data = self._request_data(lat, lon)
+        if 'error' in meteo_data:
+            return meteo_data
+        meteo_desc = self._parse(meteo_data['response'])
 
-        return weather_data
+        return meteo_desc
 
 
 class Meteo:
@@ -98,14 +98,14 @@ class Meteo:
 
     def forecast(self, input_location: str) -> str:
 
-        response = self.geo_translator.to_coords(input_location)
+        coords = self.geo_translator.to_coords(input_location)
 
-        if 'error' in response:
-            return response
+        if 'error' in coords:
+            return coords
 
-        lat, lon = response['response']
+        lat, lon = coords['response']
 
         # Retrieve weather information using the latitude and longitude.
-        weather_data = self.meteo_parser.get_data(lat=lat, lon=lon)
+        meteo_data = self.meteo_parser.get_data(lat=lat, lon=lon)
 
-        return weather_data
+        return meteo_data

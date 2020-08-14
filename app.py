@@ -39,19 +39,19 @@ def forecast():
 
     location = response['location']
 
-    weather_desc = meteo.forecast(location)
+    meteo_desc = meteo.forecast(location)
 
-    if 'error' in weather_desc:
+    if 'error' in meteo_desc:
         return jsonify(
             {
                 'response': None,
                 'location': location,
-                'error': weather_desc['error']
+                'error': meteo_desc['error']
             }
         ), 200
 
     return jsonify(
-        {'response': weather_desc['response'], 'location': location}
+        {'response': meteo_desc['response'], 'location': location}
     ), 200
 
 
