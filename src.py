@@ -71,11 +71,12 @@ class MeteoParser:
             logging.error(error_msg)
             return {'response': None, 'error': error_msg}
 
-        weather_desc = {
-            'temp': weather_data['fact']['temp'],
-            'feels_like': weather_data['fact']['feels_like'],
-            'condition': weather_data['fact']['condition']
-        }
+        # Form a verbal weather description based on the weather information.
+        weather_desc = 'Temperature: %sC, feels like: %sC, %s.' % (
+            weather_data['fact']['temp'],
+            weather_data['fact']['feels_like'],
+            weather_data['fact']['condition']
+        )
 
         return {'response': weather_desc}
 
@@ -107,14 +108,4 @@ class Meteo:
         # Retrieve weather information using the latitude and longitude.
         weather_data = self.meteo_parser.get_data(lat=lat, lon=lon)
 
-        if 'error' in weather_data:
-            return weather_data
-
-        # Form a verbal weather description based on the weather information.
-        weather_desc = 'Temperature: %sC, feels like: %sC, %s.' % (
-            weather_data['response']['temp'],
-            weather_data['response']['feels_like'],
-            weather_data['response']['condition']
-        )
-
-        return {'response': weather_desc}
+        return weather_data
