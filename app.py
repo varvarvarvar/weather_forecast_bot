@@ -1,11 +1,13 @@
 from flask import Flask, jsonify, request
 
 from config import YA_TOKEN
-from src import YaWeatherDescriptor
+from src import GeoTranslator, MeteoParser, Meteo
 
 app = Flask(__name__)
 
-descriptor = YaWeatherDescriptor(YA_TOKEN)
+geo_translator = GeoTranslator()
+meteo_parser = MeteoParser(YA_TOKEN)
+meteo = Meteo(geo_translator, meteo_parser)
 
 
 @app.route('/')
@@ -34,7 +36,7 @@ def forecast():
 
     location = response['location']
 
-    weather_desc = descriptor.describe(location)
+    weather_desc = meteo.forecast(location)
 
     if 'error' in weather_desc:
         return jsonify(
