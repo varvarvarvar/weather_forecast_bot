@@ -23,6 +23,15 @@ def forecast():
 
     response = request.json
 
+    if not response or 'location' not in response:
+        return jsonify(
+            {
+                'response': None,
+                'location': None,
+                'error': "Missing required argument 'location'."
+            }
+        ), 200
+
     location = response['location']
 
     weather_desc = descriptor.describe(location)
