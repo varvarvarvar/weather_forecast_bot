@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, request
+import logging
 
 from config import YA_TOKEN
 from src import GeoTranslator, MeteoParser, Meteo
@@ -26,11 +27,13 @@ def forecast():
     response = request.json
 
     if not response or 'location' not in response:
+        error_msg = "Missing required argument 'location'."
+        logging.error(error_msg)
         return jsonify(
             {
                 'response': None,
                 'location': None,
-                'error': "Missing required argument 'location'."
+                'error': error_msg
             }
         ), 200
 
