@@ -1,11 +1,14 @@
 from flask import Flask, jsonify, request
+import logging
 
 from config import YA_TOKEN
-from src import YaWeatherDescriptor
+from src import GeoTranslator, MeteoParser, Meteo
 
 app = Flask(__name__)
 
-descriptor = YaWeatherDescriptor(YA_TOKEN)
+geo_translator = GeoTranslator()
+meteo_parser = MeteoParser(YA_TOKEN)
+meteo = Meteo(geo_translator, meteo_parser)
 
 
 @app.route('/')
@@ -24,29 +27,31 @@ def forecast():
     response = request.json
 
     if not response or 'location' not in response:
+        error_msg = "Missing required argument 'location'."
+        logging.error(error_msg)
         return jsonify(
             {
                 'response': None,
                 'location': None,
-                'error': "Missing required argument 'location'."
+                'error': error_msg
             }
         ), 200
 
     location = response['location']
 
-    weather_desc = descriptor.describe(location)
+    meteo_desc = meteo.forecast(location)
 
-    if 'error' in weather_desc:
+    if 'error' in meteo_desc:
         return jsonify(
             {
                 'response': None,
                 'location': location,
-                'error': weather_desc['error']
+                'error': meteo_desc['error']
             }
         ), 200
 
     return jsonify(
-        {'response': weather_desc['response'], 'location': location}
+        {'response': meteo_desc['response'], 'location': location}
     ), 200
 
 

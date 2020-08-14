@@ -7,17 +7,18 @@ With this API you can get current weather forecast for different locations all o
 GET request to https://krasavina-weather-forecast-bot.herokuapp.com/weather/api/v1.0/
 <br>
 <br>
-**Parameters**:
-<br>
-location: Input location
-<br>
-**Returns**:
-<br>
-location: Input location
-<br>
-response: Weather description
-<br>
-error [ optional ]:  Error
+**Parameters:**
+```
+location (str): Location
+```
+**Returns:**
+```
+{
+location (str or None): Location
+response (str or None): Verbal weather description
+error (str, optional): Error description
+}
+```
 
 # Command line usage examples
 
@@ -46,7 +47,7 @@ $ curl -i -H "Content-Type: application/json" -X GET -d '{"location": "Piazza de
 
 ```bash
 $ curl -i -H "Content-Type: application/json" -X GET -d '{"location": "хупся"}' https://krasavina-weather-forecast-bot.herokuapp.com/weather/api/v1.0/
->> {"error":"Geopy couldn't parse this location.","location":"хупся","response":null}
+>> {"error": "Error parsing location 'хупся' with geopy.", "location": "хупся", "response": null}
 ```
 
 # Used technology stack
@@ -65,5 +66,5 @@ $ curl -i -H "Content-Type: application/json" -X GET -d '{"location": "хупс�
 # TODO
 
 1. More detailed weather description, weather forecast for tomorrow
-2. Use async
-3. Improve error handling
+2. Outfit suggestions depending on the weather
+3. Use async
