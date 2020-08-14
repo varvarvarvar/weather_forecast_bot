@@ -16,12 +16,12 @@ class GeoTranslator:
         location = self.geolocator.geocode(input_location)
 
         if not location:
-            logging.error(
-                "Geopy couldn't parse this location."
-            )
+            error_msg = "Geopy couldn't parse this location."
+
+            logging.error(error_msg)
             return {
                 'response': None,
-                'error': "Geopy couldn't parse this location."
+                'error': error_msg
             }
 
         lat, lon = location.raw['lat'], location.raw['lon']
@@ -47,17 +47,18 @@ class MeteoParser:
             response = response.json()
 
             if 'status' in response:
-                logging.error(
-                    'Error fetching data from Yandex.Weather, %s, %s',
+                error_msg = 'Error fetching data from Yandex.Weather, %s, %s' % (
                     response['status'], response['message']
                 )
-                return {'response': None, 'error': response['message']}
+                logging.error(error_msg)
+                return {'response': None, 'error': error_msg}
 
             return {'response': response}
 
         except Exception as e:
-            logging.error('Oops! En error occurred: %s' % e)
-            return {'response': None, 'error': e}
+            error_msg = 'Oops! En error occurred: %s' % e
+            logging.error(error_msg)
+            return {'response': None, 'error': error_msg}
 
     def _parse(self, weather_data: dict) -> dict:
 
@@ -66,12 +67,9 @@ class MeteoParser:
                 or 'feels_like' not in weather_data['fact'] \
                 or 'condition' not in weather_data['fact']:
 
-            logging.error('Incorrect Ya Weather API output')
-
-            return {
-                'response': None,
-                'error': 'Incorrect Ya Weather API output format.'
-            }
+            error_msg = 'Incorrect Ya Weather API output'
+            logging.error(error_msg)
+            return {'response': None, 'error': error_msg}
 
         weather_desc = {
             'temp': weather_data['fact']['temp'],
@@ -103,6 +101,7 @@ class Meteo:
 
         if 'error' in response:
             return response
+
         lat, lon = response['response']
 
         # Retrieve weather information using the latitude and longitude.
