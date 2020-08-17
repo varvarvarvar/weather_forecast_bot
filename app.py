@@ -4,6 +4,8 @@ import logging
 from config import YA_TOKEN
 from src import GeoTranslator, MeteoParser, Meteo
 
+logging.getLogger().setLevel(logging.INFO)
+
 app = Flask(__name__)
 
 geo_translator = GeoTranslator()
@@ -50,6 +52,9 @@ def forecast():
             }
         ), 200
 
+    logging.info(
+        "Location: '%s', response: '%s'" % (location, meteo_desc['response'])
+    )
     return jsonify(
         {'response': meteo_desc['response'], 'location': location}
     ), 200
