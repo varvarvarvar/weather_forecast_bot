@@ -69,7 +69,7 @@ class MeteoParser:
 
         """
 
-        base_url = "https://api.weather.yandex.ru/v2/forecast?lat=%s&lon=%s" % (
+        base_url = "https://api.weather.yandex.ru/v2/informers?lat=%s&lon=%s" % (
             lat, lon
         )
 
