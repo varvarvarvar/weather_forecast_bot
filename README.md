@@ -55,7 +55,7 @@ $ curl -i -H "Content-Type: application/json" -X GET -d '{"location": "хупс�
 1. [Yandex Weather API](https://yandex.ru/dev/weather/): API with detailed weather info based on latitude and longitude
 2. [geopy](https://geopy.readthedocs.io/en/stable/): Python library to convert string address to its latitude and longitude
 3. [Flask API](https://flask.palletsprojects.com/en/1.1.x/): Web application framework
-4. [Heroku server](https://www.heroku.com/): cloud server platform
+4. [Heroku server](https://www.heroku.com/): Cloud server platform
 
 # Useful tutorials
 

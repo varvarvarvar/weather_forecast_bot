@@ -87,7 +87,7 @@ class MeteoParser:
             return {'response': response}
 
         except Exception as e:
-            error_msg = 'Oops! En error occurred: %s.' % e
+            error_msg = 'Oops! An error occurred: %s.' % e
             logging.error(error_msg)
             return {'response': None, 'error': error_msg}
 
