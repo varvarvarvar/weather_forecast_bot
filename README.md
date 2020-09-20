@@ -4,7 +4,7 @@ With this API you can get current weather forecast for different locations all o
 
 # API description
 
-GET request to https://krasavina-weather-forecast-bot.herokuapp.com/weather/api/v1.0/
+GET request to https://varvara-weather-forecast-bot.herokuapp.com/weather/api/v1.0/
 <br>
 <br>
 **Parameters:**
@@ -25,28 +25,28 @@ error (str, optional): Error description
 1.
 
 ```bash
-$ curl -i -H "Content-Type: application/json" -X GET -d '{"location": "Red Square"}' https://krasavina-weather-forecast-bot.herokuapp.com/weather/api/v1.0/
+$ curl -i -H "Content-Type: application/json" -X GET -d '{"location": "Red Square"}' https://varvara-weather-forecast-bot.herokuapp.com/weather/api/v1.0/
 >> {"location":"Red Square","response":"Temperature: 13C, feels like: 12C, rain."}
 ```
 
 2.
 
 ```bash
-$ curl -i -H "Content-Type: application/json" -X GET -d '{"location": "Natural History Museum, London"}' https://krasavina-weather-forecast-bot.herokuapp.com/weather/api/v1.0/
+$ curl -i -H "Content-Type: application/json" -X GET -d '{"location": "Natural History Museum, London"}' https://varvara-weather-forecast-bot.herokuapp.com/weather/api/v1.0/
 >> {"location":"Natural History Museum, London","response":"Temperature: 20C, feels like: 21C, cloudy."}
 ```
 
 3.
 
 ```bash
-$ curl -i -H "Content-Type: application/json" -X GET -d '{"location": "Piazza del Colosseo, 1, Roma"}' https://krasavina-weather-forecast-bot.herokuapp.com/weather/api/v1.0/
+$ curl -i -H "Content-Type: application/json" -X GET -d '{"location": "Piazza del Colosseo, 1, Roma"}' https://varvara-weather-forecast-bot.herokuapp.com/weather/api/v1.0/
 >> {"location":"Piazza del Colosseo, 1, Roma","response":"Temperature: 26C, feels like: 28C, clear."}
 ```
 
 4.
 
 ```bash
-$ curl -i -H "Content-Type: application/json" -X GET -d '{"location": "хупся"}' https://krasavina-weather-forecast-bot.herokuapp.com/weather/api/v1.0/
+$ curl -i -H "Content-Type: application/json" -X GET -d '{"location": "хупся"}' https://varvara-weather-forecast-bot.herokuapp.com/weather/api/v1.0/
 >> {"error": "Error parsing location 'хупся' with geopy.", "location": "хупся", "response": null}
 ```
 
