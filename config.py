@@ -1,3 +1,4 @@
+import os
 
-YA_TOKEN = '9b5a150e-dc69-458f-b51d-9bfe738c8376'
-MOESIF_TOKEN = 'eyJhcHAiOiIzOTE6MTUwIiwidmVyIjoiMi4wIiwib3JnIjoiODg6NjExIiwiaWF0IjoxNjAxNTEwNDAwfQ.t0ttFczx3VIK83XrCh839m10jxsTaow77BFCM4We8pM'
+YA_TOKEN = os.environ.get('YA_TOKEN', None)
+MOESIF_TOKEN = os.environ.get('MOESIF_TOKEN', None)
