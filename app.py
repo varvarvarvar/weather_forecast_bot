@@ -4,6 +4,9 @@ import logging
 from config import YA_TOKEN
 from src import GeoTranslator, MeteoParser, Meteo
 
+from moesif_monitoring import moesif_settings
+from moesifwsgi import MoesifMiddleware
+
 logging.getLogger().setLevel(logging.INFO)
 
 app = Flask(__name__)
@@ -11,6 +14,8 @@ app = Flask(__name__)
 geo_translator = GeoTranslator()
 meteo_parser = MeteoParser(YA_TOKEN)
 meteo = Meteo(geo_translator, meteo_parser)
+
+app.wsgi_app = MoesifMiddleware(app.wsgi_app, moesif_settings)
 
 
 @app.route('/')
