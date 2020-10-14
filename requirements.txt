@@ -2,3 +2,4 @@ Flask==1.1.2
 requests==2.22.0
 gunicorn==20.0.4
 geopy==2.0.0
+moesifwsgi==1.3.1
