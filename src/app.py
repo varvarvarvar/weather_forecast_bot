@@ -1,10 +1,10 @@
 from flask import Flask, jsonify, request
 import logging
 
-from config import YA_TOKEN
-from src import GeoTranslator, MeteoParser, Meteo
+from .config import YA_TOKEN
+from .src import GeoTranslator, MeteoParser, Meteo
 
-from moesif_monitoring import moesif_settings
+from .moesif_monitoring import moesif_settings
 from moesifwsgi import MoesifMiddleware
 
 logging.getLogger().setLevel(logging.INFO)
@@ -16,7 +16,6 @@ meteo_parser = MeteoParser(YA_TOKEN)
 meteo = Meteo(geo_translator, meteo_parser)
 
 app.wsgi_app = MoesifMiddleware(app.wsgi_app, moesif_settings)
-
 
 @app.route('/')
 def index():
@@ -63,3 +62,27 @@ def forecast():
     return jsonify(
         {'response': meteo_desc['response'], 'location': location}
     ), 200
+
+
+# from prometheus_client import start_http_server, Summary
+# import random
+# import time
+
+# # Create a metric to track time spent and requests made.
+# REQUEST_TIME = Summary('request_processing_seconds', 'Time spent processing request')
+
+# # Decorate function with metric.
+# @REQUEST_TIME.time()
+# def process_request(t):
+#     """A dummy function that takes some time."""
+#     time.sleep(t)
+
+if __name__ == '__main__':
+    # start_http_server(8000)
+    # Generate some requests.
+    app.run(debug=True, port=5000)
+
+    # process_request(random.random())
+
+    # Start up the server to expose the metrics.
+    

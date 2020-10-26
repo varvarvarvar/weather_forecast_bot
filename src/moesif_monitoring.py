@@ -1,4 +1,4 @@
-from config import MOESIF_TOKEN
+from .config import MOESIF_TOKEN
 
 
 moesif_settings = {
