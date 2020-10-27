@@ -1,10 +1,10 @@
 from flask import Flask, jsonify, request
 import logging
 
-from config import YA_TOKEN
-from src import GeoTranslator, MeteoParser, Meteo
+from .config import YA_TOKEN
+from .src import GeoTranslator, MeteoParser, Meteo
 
-from moesif_monitoring import moesif_settings
+from .moesif_monitoring import moesif_settings
 from moesifwsgi import MoesifMiddleware
 
 logging.getLogger().setLevel(logging.INFO)
