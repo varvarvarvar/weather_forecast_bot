@@ -4,10 +4,10 @@ WORKDIR /code
 
 ADD src /code/src
 COPY requirements.txt /code
-COPY wsgi.py /code
+COPY main.py /code
 COPY .env /code
 
 RUN pip3 install -r requirements.txt
 
 ENTRYPOINT ["python3"]
-CMD ["wsgi.py"]
+CMD ["main.py"]
