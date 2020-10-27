@@ -55,16 +55,19 @@ $ curl -i -H "Content-Type: application/json" -X GET -d '{"location": "хупс�
 1. [Yandex Weather API](https://yandex.ru/dev/weather/): API with detailed weather info based on latitude and longitude
 2. [geopy](https://geopy.readthedocs.io/en/stable/): Python library to convert string address to its latitude and longitude
 3. [Flask API](https://flask.palletsprojects.com/en/1.1.x/): Web application framework
-4. [Heroku server](https://www.heroku.com/): Cloud server platform
+4. [Docker](https://www.docker.com/): Tool for building containerized applications
+5. [Heroku server](https://www.heroku.com/): Cloud server platform
+6. [Moesif](https://www.moesif.com/): API Monitoring
 
 # Useful tutorials
 
 1. [Guide to RESTful API with Flask](https://blog.miguelgrinberg.com/post/designing-a-restful-api-with-python-and-flask)
 2. [Guide to Deploying a Flask app on Heroku](https://kaushalvivek.github.io/2020-3-30-heroku-flask/)
 3. [Yandex Weather API Examples](https://sprut.ai/client/blog/1165)
+4. [Heroku Port Binding](https://medium.com/@ksashok/containerise-your-python-flask-using-docker-and-deploy-it-onto-heroku-a0b48d025e43)
 
 # TODO
 
-1. More detailed weather description, weather forecast for tomorrow
-2. Outfit suggestions depending on the weather
-3. Use async
+1. Pre commit hooks 
+2. Prometheus
+3. Grafana
